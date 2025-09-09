@@ -358,13 +358,13 @@ useEffect(() => {
 <div className="table-wrap"> 
   <table className="grid2"> 
    <colgroup>
-    <col className="w-order"/><col className="w-date"/><col className="w-name"/>
-    <col className="w-spec"/><col className="w-qty"/><col className="w-price"/>
-    <col className="w-whname"/><col className="w-whphone"/><col className="w-whfax"/>
-    <col className="w-supp"/><col className="w-sphone"/>
-    <col className="w-receipt"/><col className="w-product"/>
-    <col className="w-memo"/><col className="w-done"/>
-    <col className="w-edit"/>
+    <col className="w-order2"/><col className="w-date2"/><col className="w-name2"/>
+    <col className="w-spec2"/><col className="w-qty2"/><col className="w-price2"/>
+    <col className="w-whname2"/><col className="w-whphone2"/><col className="w-whfax2"/>
+    <col className="w-supp2"/><col className="w-sphone2"/>
+    <col className="w-receipt2"/><col className="w-product2"/>
+    <col className="w-memo2"/><col className="w-done2"/>
+    <col className="w-edit2"/>
   </colgroup>  
     <thead> 
       <tr>  
