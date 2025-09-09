@@ -224,7 +224,7 @@ useEffect(() => {
 </datalist>
 {/* ------------------------------------------------------*/}
 
-<form onSubmit={handleSubmit} > {/* ----   form1   grid1   -----------------------------------*/}
+<form className="table-wrap" onSubmit={handleSubmit} > {/* ----   form1   grid1   -----------------------------------*/}
   <table className="grid">
   <colgroup>
     <col className="w-order"/><col className="w-done"/><col className="w-date"/>
@@ -356,7 +356,7 @@ useEffect(() => {
 
 {/* 목록테이블 파트 ------   grid2  div4s   ---------------------*/}
 <div className="table-wrap"> 
-  <table className="grid2"> 
+  <table className="grid"> 
    <colgroup>
     <col className="w-order"/><col className="w-date"/><col className="w-name"/>
     <col className="w-spec"/><col className="w-qty"/><col className="w-price"/>
