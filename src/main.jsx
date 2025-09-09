@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './main.css';   // 있으면 유지
-import './app.css';     // 있으면 유지
+
 
 // import reportWebVitals from './reportWebVitals';
 
