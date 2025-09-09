@@ -356,7 +356,7 @@ useEffect(() => {
 
 {/* 목록테이블 파트 ------   grid2  div4s   ---------------------*/}
 <div className="table-wrap"> 
-  <table className="grid"> 
+  <table className="grid2"> 
    <colgroup>
     <col className="w-order"/><col className="w-date"/><col className="w-name"/>
     <col className="w-spec"/><col className="w-qty"/><col className="w-price"/>
