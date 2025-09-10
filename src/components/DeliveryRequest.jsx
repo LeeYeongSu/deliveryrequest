@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import './DeliveryRequest.css'
+import { exportJson } from "../utils/fileExport.js";
+
 
 const formatPhoneNumber = (value) => {
   const onlyNums = value.replace(/\D/g, '');
@@ -136,8 +138,7 @@ const handleEdit = (index) => {
   };
 /* --------------------------------------------------------------*/
 const handleCancel = () => {
-  // [ADD] 스펙 입력 시 사용자 수정 플래그 ON 9/10spec 추가
-if (name === 'spec') setSpecEdited(true);
+handleCancel
   setForm({
     date: '', productName: '', spec: '', quantity: '', unitPrice: '',
     warehouseName: '', warehousePhone: '', warehouseFax: '',
@@ -169,17 +170,7 @@ useEffect(() => {
     useEffect(() => {
   console.log("editIndex 상태:", editIndex);
 }, [editIndex]);
-{/* [ADD] 현재 선택한 품목에 해당하는 스펙 히스토리만 제안 9/10 추가*/}
-<datalist id="specList">
-  {[...new Set(
-      requests
-        .filter(r =>
-          (r.productName || '').trim().toLowerCase() === (form.productName || '').trim().toLowerCase()
-        )
-        .map(r => r.spec)
-        .filter(Boolean)
-    )].map((s, i) => <option key={i} value={s} />)}
-</datalist>
+
 
 /* ------------------------------------------------------------------------- */
 useEffect(() => {
@@ -307,12 +298,14 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
         <td><input name="completed" type="checkbox" checked={form.completed} onChange={handleChange} /></td>
         <td><input name="date" type="date" value={form.date} onChange={handleChange}  /></td>
 
-        <td><input name="productName" list={form.productName?.length ? 'productNameList' : undefined}
-            autoComplete="off" value={form.productName} onChange={handleChange}/></td>
+        <td><input name="productName" 
+              list={form.productName?.length ? 'productNameList' : undefined}
+              autoComplete="off" value={form.productName} onChange={handleChange}/></td>
 
-        <td><input name="spec" list={form.spec?.length ? 'specList' : undefined}
-          autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false}
-          value={form.spec} onChange={handleChange}/></td>
+        <td><input name="spec" 
+              list={form.spec?.length ? 'specList' : undefined}
+              autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false}
+              value={form.spec} onChange={handleChange}/></td>
 
         <td><input name="quantity" list={form.quantity?.length ? 'quantityList' : undefined}
             value={form.quantity} onChange={handleChange} style={{width:'50px'}} /></td>
@@ -371,8 +364,11 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
   <input type="text" placeholder="품목" value={searchFilter.productName} onChange={(e) => setSearchFilter({ ...searchFilter, productName: e.target.value })} />
   <input type="text" placeholder="창고명" value={searchFilter.warehouseName} onChange={(e) => setSearchFilter({ ...searchFilter, warehouseName: e.target.value })} />
   <input type="text" placeholder="매입처" value={searchFilter.supplierName} onChange={(e) => setSearchFilter({ ...searchFilter, supplierName: e.target.value })} />
+
 {/* 데이터저장파트 및 불러오기 버튼 */}
-  <button
+{/* ---  저장파트   ------ */}
+   <button onClick={() => exportJson(requests, 'deliveryRequests.json')}>저장하기</button>
+{/*<button
     onClick={() => {
       const blob = new Blob([JSON.stringify(requests, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
@@ -381,11 +377,9 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
       a.download = 'deliveryRequests.json';
       a.click();
       URL.revokeObjectURL(url);
-    }}
-  >
-    저장하기
-  </button>
-  {/*----------------div3s Handler collector 1th Area ------------------- */}
+    }}>저장하기</button>*/}
+
+  {/* ---  불러오기 파트   ------ */}
   <input
     type="file"
     accept="application/json"

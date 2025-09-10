@@ -138,7 +138,7 @@ const handleEdit = (index) => {
   };
 /* --------------------------------------------------------------*/
 const handleCancel = () => {
-
+handleCancel
   setForm({
     date: '', productName: '', spec: '', quantity: '', unitPrice: '',
     warehouseName: '', warehousePhone: '', warehouseFax: '',
@@ -298,12 +298,14 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
         <td><input name="completed" type="checkbox" checked={form.completed} onChange={handleChange} /></td>
         <td><input name="date" type="date" value={form.date} onChange={handleChange}  /></td>
 
-        <td><input name="productName" list={form.productName?.length ? 'productNameList' : undefined}
-            autoComplete="off" value={form.productName} onChange={handleChange}/></td>
+        <td><input name="productName" 
+              list={form.productName?.length ? 'productNameList' : undefined}
+              autoComplete="off" value={form.productName} onChange={handleChange}/></td>
 
-        <td><input name="spec" list={form.spec?.length ? 'specList' : undefined}
-          autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false}
-          value={form.spec} onChange={handleChange}/></td>
+        <td><input name="spec" 
+              list={form.spec?.length ? 'specList' : undefined}
+              autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false}
+              value={form.spec} onChange={handleChange}/></td>
 
         <td><input name="quantity" list={form.quantity?.length ? 'quantityList' : undefined}
             value={form.quantity} onChange={handleChange} style={{width:'50px'}} /></td>
