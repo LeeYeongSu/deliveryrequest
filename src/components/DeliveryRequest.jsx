@@ -367,8 +367,10 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
 
 {/* 데이터저장파트 및 불러오기 버튼 */}
 {/* ---  저장파트   ------ */}
+{/*
    <button onClick={() => exportJson(requests, 'deliveryRequests.json')}>저장하기</button>
-{/*<button
+   */}
+*<button
     onClick={() => {
       const blob = new Blob([JSON.stringify(requests, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
@@ -377,7 +379,7 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
       a.download = 'deliveryRequests.json';
       a.click();
       URL.revokeObjectURL(url);
-    }}>저장하기</button>*/}
+    }}>저장하기</button>
 
   {/* ---  불러오기 파트   ------ */}
   <input
