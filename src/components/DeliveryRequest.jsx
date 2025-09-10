@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import './DeliveryRequest.css'
-import { exportJson } from "../utils/fileExport.js";
-
 
 const formatPhoneNumber = (value) => {
   const onlyNums = value.replace(/\D/g, '');
@@ -63,6 +61,13 @@ const [searchFilter,setSearchFilter] = useState({
 const [editIndex, setEditIndex] = useState(null);
 /* -------  추가 9/10일  품목입력시 스팩 자동추가------------------------------------------*/
 const [specEdited, setSpecEdited] = useState(false);
+// [ADD] 목록 약식보기 토글 상태 (로컬 저장 복원) 9/10일 추가공사
+const [isCompact, setIsCompact] = useState(() => {
+  try {
+    return localStorage.getItem('listViewMode') === 'compact';
+  } catch { return false; }
+});
+
 /* --------------------------------------------------------------*/
 const handleChange = (e) => {
   const { name, value, type, checked } = e.target;
@@ -207,7 +212,7 @@ const handleClearDate = () => {
   setSearchFilter((prev) => ({ ...prev, date: '' }));
 };
 
-// [ADD] 품목이 바뀌면 스펙 자동 채움(사용자가 스펙을 비워둔 경우에만)
+// [ADD 9/10] 품목이 바뀌면 스펙 자동 채움(사용자가 스펙을 비워둔 경우에만)
 useEffect(() => {
   const p = (form.productName || '').trim().toLowerCase();
   if (!p) return;
@@ -220,8 +225,15 @@ useEffect(() => {
   if (found) setForm(prev => ({ ...prev, spec: found.spec }));
 }, [form.productName, specEdited, requests]);
 
-// [ADD] 품목이 바뀌면 사용자 수정 플래그 리셋(새 품목에서 다시 자동 채움 허용)
+// [ADD 9/10] 품목이 바뀌면 사용자 수정 플래그 리셋(새 품목에서 다시 자동 채움 허용)
 useEffect(() => { setSpecEdited(false); }, [form.productName]);
+// [ADD 9/10] 모드 변경 시 로컬 저장
+useEffect(() => {
+  try {
+    localStorage.setItem('listViewMode', isCompact ? 'compact' : 'full');
+  } catch {}
+}, [isCompact]);
+
 
 /* ==================    본문시작 프로그램 시작         =================================== */
   return (  
@@ -263,13 +275,13 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
 
 <form className="table-wrap" onSubmit={handleSubmit} > {/* ----   form1   grid1   -----------------------------------*/}
   <table className="grid">
-  <colgroup>
+{/*  <colgroup>
     <col className="w-order"/><col className="w-done"/><col className="w-date"/>
     <col className="w-name"/><col className="w-spec"/><col className="w-qty"/>
     <col className="w-price"/><col className="w-whname"/><col className="w-whphone"/>
     <col className="w-whfax"/><col className="w-supp"/><col className="w-sphone"/>
     <col className="w-receipt"/><col className="w-product"/><col className="w-memo"/>
-  </colgroup>      
+  </colgroup>  */}    
     <thead className="thead1">      
       <tr>  
         <th style={{ border: '1px solid #000' }}>순번</th>
@@ -346,7 +358,7 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
   </table>  
 {/* ---------------table1-----------------------------------------------*/}
 
-{/*=========== 수정완료/ 출고등록  div.div4  ==================================== */}
+{/*=========== 버튼 출고등록   div.div4  ==================================== */}
   <div className ="table-wrap">
     <button type="submit"> {editIndex !== null ? '수정 완료' : '출고 등록'} </button>
     <button id = "btn1" type="button" onClick={handleCancel}>입력 취소</button>
@@ -356,6 +368,7 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
 
 {/* ---------------  form2  조회파트(찾기)   --------------------------------------*/}
  <h3 style={{ marginTop: '30px' }}>출고 목록 (순번 정렬)</h3>
+
 {/*----------------   div3 조회항목  ---------------------------- */}
 <div className="table-wrap">    
   <input type="date" placeholder="YY-MM-DD" value={searchFilter.date} onChange={(e) => setSearchFilter({ ...searchFilter, date: e.target.value })} />
@@ -366,11 +379,17 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
   <input type="text" placeholder="매입처" value={searchFilter.supplierName} onChange={(e) => setSearchFilter({ ...searchFilter, supplierName: e.target.value })} />
 
 {/* 데이터저장파트 및 불러오기 버튼 */}
+ {/* [ADD 9/10] 약식/전체 보기 토글 버튼 — 저장하기 앞 */}
+--<button
+  type="button"
+  className="btn-toggle-view"
+  onClick={() => setIsCompact((v) => !v)}
+  style={{ marginRight: '8px' }}
+>
+  {isCompact ? '전체보기' : '약식보기'}
+</button>
 {/* ---  저장파트   ------ */}
-{/*
-   <button onClick={() => exportJson(requests, 'deliveryRequests.json')}>저장하기</button>
-   */}
-*<button
+<button
     onClick={() => {
       const blob = new Blob([JSON.stringify(requests, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
@@ -382,9 +401,7 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
     }}>저장하기</button>
 
   {/* ---  불러오기 파트   ------ */}
-  <input
-    type="file"
-    accept="application/json"
+  <input type="file" accept="application/json"
     onChange={(e) => {
       const file = e.target.files[0];
       if (!file) return;
@@ -399,15 +416,14 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
       };
       reader.readAsText(file);
     }}
-  />
-  
+  ></input>  
   
 </div> {/* ---------------  div3e  -----------------------------------------------*/}
 
 {/* 목록테이블 파트 ------   grid2  div4s   ---------------------*/}
-<div className="table-wrap"> 
+<div className={`table-wrap list-wrap ${isCompact ? 'mode-compact' : 'mode-full'}`}> 
   <table className="grid2"> 
-   <colgroup>
+{/*   <colgroup>
     <col className="w-order2"/><col className="w-date2"/><col className="w-name2"/>
     <col className="w-spec2"/><col className="w-qty2"/><col className="w-price2"/>
     <col className="w-whname2"/><col className="w-whphone2"/><col className="w-whfax2"/>
@@ -415,7 +431,7 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
     <col className="w-receipt2"/><col className="w-product2"/>
     <col className="w-memo2"/><col className="w-done2"/>
     <col className="w-edit2"/>
-  </colgroup>  
+  </colgroup>  */}
     <thead> 
       <tr>  
         <th>순번</th>

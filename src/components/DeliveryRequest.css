@@ -107,12 +107,12 @@ html,body,#root{width:100%;height:100%;margin:0;padding:0;}
 
 /* ================== 출력 전용 테이블: grid2 ================== */
 /*폰트수정5-5*/
-.grid2{
-  table-layout: fixed;
-  width: 100%;
-  border-collapse: collapse;
-  font-size : 11px;
- }
++.grid2{
++  table-layout: auto;
++  width: 100%;
++  border-collapse: collapse;
++  font-size: var(--font-output);
++}
 .grid2 th, .grid2 td{
   padding:4px;border:1px solid #e3e3e3; /* 라인을 긋는다 */
   white-space: nowrap;
@@ -134,12 +134,12 @@ html,body,#root{width:100%;height:100%;margin:0;padding:0;}
 
 
 /* 칼럼 폭: 최소~선호~최대 (px, vw 조합) */
-/* 순번2:30 날짜2:40  품목2:120-140 규격2:120-140 */
+/* 순번2:30 날짜2:40  품목2:120-140 규격2:120-140 
 .grid2 col.w-order2   { width: clamp( 30px, 10vw, 30px); }
 .grid2 col.w-date2    { width: clamp( 50px, 10vw, 50px); }
 .grid2 col.w-name2    { width: clamp(120px, 15vw, 120px); }  
 .grid2 col.w-spec2    { width: clamp(120px, 15vw, 120px); }
-/*수량1:40  단가1:60 */
+
 .grid2 col.w-qty2     { width: clamp( 40px, 10vw,  40px); }
 .grid2 col.w-price2   { width: clamp( 60px, 10vw, 60px); }
 
@@ -156,6 +156,34 @@ html,body,#root{width:100%;height:100%;margin:0;padding:0;}
 .grid2 col.w-memo2    { width: clamp( 60px, 15vw, 60px); }   
 .grid2 col.w-actions2 { width: clamp( 30px, 10vw, 30px); }
 .grid2 col.w-edit2 { width: clamp(100px, 10vw, 100px); }
+*/
+/* 약식보기: 보여줄 열 = 3(품목) 5(수량) 7(창고명) 10(매입처) 11(연락처) */
+.list-wrap.mode-compact .grid2 th:nth-child(1),
+.list-wrap.mode-compact .grid2 td:nth-child(1),
+.list-wrap.mode-compact .grid2 th:nth-child(2),
+.list-wrap.mode-compact .grid2 td:nth-child(2),
+.list-wrap.mode-compact .grid2 th:nth-child(4),
+.list-wrap.mode-compact .grid2 td:nth-child(4),
+.list-wrap.mode-compact .grid2 th:nth-child(6),
+.list-wrap.mode-compact .grid2 td:nth-child(6),
+.list-wrap.mode-compact .grid2 th:nth-child(8),
+.list-wrap.mode-compact .grid2 td:nth-child(8),
+.list-wrap.mode-compact .grid2 th:nth-child(9),
+.list-wrap.mode-compact .grid2 td:nth-child(9),
+.list-wrap.mode-compact .grid2 th:nth-child(12),
+.list-wrap.mode-compact .grid2 td:nth-child(12),
+.list-wrap.mode-compact .grid2 th:nth-child(13),
+.list-wrap.mode-compact .grid2 td:nth-child(13),
+.list-wrap.mode-compact .grid2 th:nth-child(14),
+.list-wrap.mode-compact .grid2 td:nth-child(14),
+.list-wrap.mode-compact .grid2 th:nth-child(15),
+.list-wrap.mode-compact .grid2 td:nth-child(15),
+.list-wrap.mode-compact .grid2 th:nth-child(16),
+.list-wrap.mode-compact .grid2 td:nth-child(16){ display:none; }
+
+/* 약식보기일 때 살짝 더 촘촘하게(선택) */
+.list-wrap.mode-compact .grid2 th,
+.list-wrap.mode-compact .grid2 td{ padding:3px; }
 
 /* ===================================================================== */
 .ttt {
