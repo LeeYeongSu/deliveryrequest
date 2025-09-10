@@ -1,27 +1,58 @@
 html,body,#root{width:100%;height:100%;margin:0;padding:0;}
-.page{max-width:none;width:98vw; table-layout: fixed;
-  margin:0;padding:12px 11px;font-size: 12px;
+/* ▶️main-page 폰트수정5-1
+*/
+.page{max-width:none;
+  width:98vw; 
+  table-layout: fixed;
+  margin:0;
+  padding:12px 11px;
+  font-size: 10px;
   
-} /* 핵심 */
+} 
+/*  핸드폰용 글자크기 작게 변환용 9/10일 추가
+-.page{max-width:none; width:98vw; table-layout: fixed; margin:0;padding:12px 11px;font-size: 12px;}
++.page{▶️font-size: 11px;} ▶️폰트 사이즈만 변경
+-.grid th,.grid td{padding:4px;border:1px solid #e3e3e3;word-break:break-word; font-size:12px;}
++.grid th,.grid td{▶️font-size: 11px;} ▶️폰트 사이즈만 변경
+-.grid input,.grid select,.grid textarea{width:100% !important; box-sizing:border-box; font-size:12px;}
++.grid input,.grid select,.grid textarea{▶️font-size: 11px;} ▶️폰트 사이즈만 변경
+-.grid2{ table-layout: fixed; width: 100%; border-collapse: collapse; font-size : 12px; }
++.grid2{ ▶️font-size: 11px;} ▶️폰트 사이즈만 변경
+@media (max-width:768px){
+  .page{font-size:10px}
+  .grid th,.grid td{font-size:10px}
+  .grid input,.grid select,.grid textarea{font-size:10px}
+  .grid2{font-size:10px}
+}
+*/
+
+/* 핵심 */
                        
 .table-wrap{    /*div2  width와 min-width를 같은 px로 지정 + table-layout: fixed.*/
   overflow-x:auto;
   -webkit-overflow-scrolling:touch
 } 
 .grid{ width:100%; table-layout:fixed; border-collapse:collapse }
-.grid th,.grid td{padding:4px;border:1px solid #e3e3e3;word-break:break-word; font-size:12px;}
+/*폰트수정5-2*/
+.grid th,.grid td{padding:4px;border:1px solid #e3e3e3;word-break:break-word; font-size:10px;}
 /*.grid th,.grid td{ padding:6px; border:1px solid #e3e3e3; white-space:nowrap; vertical-align:middle }*/
 
 .grid th{background:#f6f6f6}
 .grid img{max-width:96px;height:auto;display:block}
+/*폰트수정5-3*/
 @media (max-width:768px){
   html{font-size:10px}  
   .col-fax,.col-sphone{display:none} /* 숨길 열 */
+  .page{font-size:10px}
+  .grid th,.grid td{font-size:10px}
+  .grid input,.grid select,.grid textarea{font-size:10px}
+  .grid2{font-size:10px}
+  
 }
 /* 레이아웃 기본 */
 /* .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}*/
-/* 인라인 width 무력화 */
-.grid input,.grid select,.grid textarea{width:100% !important; box-sizing:border-box; font-size:12px;}
+/* 인라인 width 무력화 *//*폰트수정5-4*/
+.grid input,.grid select,.grid textarea{width:100% !important; box-sizing:border-box; font-size:10px;}
 /* 목록 영역 세로 스크롤 필요하면 */
 .table-wrap + .table-wrap{max-height:300px;overflow-y:auto;border:1px solid #ccc;margin-top:12px}
 
@@ -56,12 +87,12 @@ html,body,#root{width:100%;height:100%;margin:0;padding:0;}
 */
 
 /* ================== 출력 전용 테이블: grid2 ================== */
-
+/*폰트수정5-5*/
 .grid2{
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
-  font-size : 12px;
+  font-size : 10px;
  }
 .grid2 th, .grid2 td{
   padding:4px;border:1px solid #e3e3e3; /* 라인을 긋는다 */

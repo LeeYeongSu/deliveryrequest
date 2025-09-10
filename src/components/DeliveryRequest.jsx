@@ -195,6 +195,10 @@ useEffect(() => {
     setRequests(cleaned);
   }
 }, []);
+/* 날짜 초기화 핸들러 */
+const handleClearDate = () => {
+  setSearchFilter((prev) => ({ ...prev, date: '' }));
+};
 
 /* ==================     본문 프로그램 시작         =================================== */
   return (    
@@ -315,6 +319,8 @@ useEffect(() => {
 {/*----------------   div3 조회항목  ---------------------------- */}
 <div className="table-wrap">    
   <input type="date" placeholder="YY-MM-DD" value={searchFilter.date} onChange={(e) => setSearchFilter({ ...searchFilter, date: e.target.value })} />
+  {/* 날짜 초기화 버튼 */}
+  <button type="button" className="btn-reset-date" onClick={handleClearDate}>초기화</button>
   <input type="text" placeholder="품목" value={searchFilter.productName} onChange={(e) => setSearchFilter({ ...searchFilter, productName: e.target.value })} />
   <input type="text" placeholder="창고명" value={searchFilter.warehouseName} onChange={(e) => setSearchFilter({ ...searchFilter, warehouseName: e.target.value })} />
   <input type="text" placeholder="매입처" value={searchFilter.supplierName} onChange={(e) => setSearchFilter({ ...searchFilter, supplierName: e.target.value })} />
@@ -332,7 +338,7 @@ useEffect(() => {
   >
     저장하기
   </button>
-  {/*----------------div3s---------------------------- */}
+  {/*----------------div3s Handler collector 1th Area ------------------- */}
   <input
     type="file"
     accept="application/json"
@@ -351,6 +357,7 @@ useEffect(() => {
       reader.readAsText(file);
     }}
   />
+  
   
 </div> {/* ---------------  div3e  -----------------------------------------------*/}
 
