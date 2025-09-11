@@ -275,13 +275,13 @@ useEffect(() => {
 
 <form className="table-wrap" onSubmit={handleSubmit} > {/* ----   form1   grid1   -----------------------------------*/}
   <table className="grid">
-{/*  <colgroup>
+ <colgroup>
     <col className="w-order"/><col className="w-done"/><col className="w-date"/>
     <col className="w-name"/><col className="w-spec"/><col className="w-qty"/>
     <col className="w-price"/><col className="w-whname"/><col className="w-whphone"/>
     <col className="w-whfax"/><col className="w-supp"/><col className="w-sphone"/>
     <col className="w-receipt"/><col className="w-product"/><col className="w-memo"/>
-  </colgroup>  */}    
+  </colgroup>     
     <thead className="thead1">      
       <tr>  
         <th style={{ border: '1px solid #000' }}>순번</th>

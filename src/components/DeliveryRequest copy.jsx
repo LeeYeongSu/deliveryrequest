@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import './DeliveryRequest.css'
 
+
+
 const formatPhoneNumber = (value) => {
   const onlyNums = value.replace(/\D/g, '');
   if (onlyNums.startsWith('02')) {
@@ -136,8 +138,7 @@ const handleEdit = (index) => {
   };
 /* --------------------------------------------------------------*/
 const handleCancel = () => {
-  // [ADD] 스펙 입력 시 사용자 수정 플래그 ON 9/10spec 추가
-if (name === 'spec') setSpecEdited(true);
+handleCancel
   setForm({
     date: '', productName: '', spec: '', quantity: '', unitPrice: '',
     warehouseName: '', warehousePhone: '', warehouseFax: '',
@@ -169,17 +170,7 @@ useEffect(() => {
     useEffect(() => {
   console.log("editIndex 상태:", editIndex);
 }, [editIndex]);
-{/* [ADD] 현재 선택한 품목에 해당하는 스펙 히스토리만 제안 9/10 추가*/}
-<datalist id="specList">
-  {[...new Set(
-      requests
-        .filter(r =>
-          (r.productName || '').trim().toLowerCase() === (form.productName || '').trim().toLowerCase()
-        )
-        .map(r => r.spec)
-        .filter(Boolean)
-    )].map((s, i) => <option key={i} value={s} />)}
-</datalist>
+
 
 /* ------------------------------------------------------------------------- */
 useEffect(() => {
@@ -269,8 +260,8 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
   )].map((s, i) => <option key={i} value={s} />)}
 </datalist>
 {/* ------------------------------------------------------*/}
-
-<form className="table-wrap" onSubmit={handleSubmit} > {/* ----   form1   grid1   -----------------------------------*/}
+{/* ----   form1   grid1   -------*/}
+<form className="table-wrap" onSubmit={handleSubmit} > 
   <table className="grid">
   <colgroup>
     <col className="w-order"/><col className="w-done"/><col className="w-date"/>
@@ -297,57 +288,40 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
         <th style={{ border: '1px solid #000' }}>제품픽</th>
         <th style={{ border: '1px solid #000' }}>비고</th>
       </tr>
-    </thead>  
+    </thead>    
 
     {/* ======    입력파트   tbody1s  =======================-*/}
     <tbody>     
       <tr>      
-        <td><input name="groupOrder" type="number" value={form.groupOrder} onChange={handleChange} 
-        style={{width:'100px'}}/></td>
+        <td><input name="groupOrder" type="number" value={form.groupOrder} onChange={handleChange} /></td>
         <td><input name="completed" type="checkbox" checked={form.completed} onChange={handleChange} /></td>
-        <td><input name="date" type="date" value={form.date} onChange={handleChange}  /></td>
-
-        <td><input name="productName" list={form.productName?.length ? 'productNameList' : undefined}
-            autoComplete="off" value={form.productName} onChange={handleChange}/></td>
-
-        <td><input name="spec" list={form.spec?.length ? 'specList' : undefined}
-          autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false}
-          value={form.spec} onChange={handleChange}/></td>
-
+        <td><input name="date" type="date" value={form.date} onChange={handleChange} /></td>
+        <td><input name="productName" 
+              list={form.productName?.length ? 'productNameList' : undefined}
+              autoComplete="off" value={form.productName} onChange={handleChange} /></td>
+        <td><input name="spec" 
+              list={form.spec?.length ? 'specList' : undefined}
+              autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false}
+              value={form.spec} onChange={handleChange} /></td>
         <td><input name="quantity" list={form.quantity?.length ? 'quantityList' : undefined}
-            value={form.quantity} onChange={handleChange} style={{width:'50px'}} /></td>
-        <td><input
-          name="unitPrice" 
-          value={formatNumberWithCommas(form.unitPrice)}
-          onChange={(e) => {
+            value={form.quantity} onChange={handleChange}  /></td>
+        <td><input name="unitPrice" value={formatNumberWithCommas(form.unitPrice)} onChange={(e) => {
             const raw = e.target.value.replace(/,/g, '');
-            if (!isNaN(raw)) setForm((prev) => ({ ...prev, unitPrice: raw }));
-          }}
-          
-        /></td> 
-        <td><input name="warehouseName"list="warehouseNameList" value={form.warehouseName} onChange={handleChange}
-          /></td>
-        <td><input name="warehousePhone" value={form.warehousePhone} onChange={handleChange} 
-         /></td>
-        <td><input name="warehouseFax" value={form.warehouseFax} onChange={handleChange} 
-         /></td>
-        <td><input name="supplierName"list="supplierNameList" value={form.supplierName} onChange={handleChange}
-           /></td>
-        <td><input name="supplierPhone" value={form.supplierPhone} onChange={handleChange}  style={{width:'90px'}}/></td>
+            if (!isNaN(raw)) setForm((prev) => ({ ...prev, unitPrice: raw })); }}/></td> 
+        <td><input name="warehouseName"list="warehouseNameList" value={form.warehouseName} onChange={handleChange} /></td>
+        <td><input name="warehousePhone" value={form.warehousePhone} onChange={handleChange} /></td>
+        <td><input name="warehouseFax" value={form.warehouseFax} onChange={handleChange} /></td>
+        <td><input name="supplierName"list="supplierNameList" value={form.supplierName} onChange={handleChange} /></td>
+        <td><input name="supplierPhone" value={form.supplierPhone} onChange={handleChange}  style={{width:'70px'}}/></td>
         <td><label style={{display: 'inline-block', background: '#f0f0f0', border: '1px solid #ccc', 
-        padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' 
-  }}>
-    사진
-    <input type="file" accept="image/*" capture="environment" onChange={(e) => handleImageChange(e, 'receiptImage')} style={{ display: 'none' }}/>
-  </label></td>
-        <td><label style={{display: 'inline-block', background: '#f0f0f0', border: '1px solid #ccc', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer',
-    fontSize: '12px' 
-  }}>
-    사진
-    <input type="file" accept="image/*" capture="environment" onChange={(e) => handleImageChange(e, 'productImage')} 
-    style={{ display: 'none'  }} />
-  </label></td>
-        <td><textarea name="memo" value={form.memo} onChange={handleChange} style={{width:'80px'}} /></td>
+        padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}>사진
+          <input type="file" accept="image/*" capture="environment" onChange={(e) => 
+          handleImageChange(e, 'receiptImage')} style={{ display: 'none' }}/></label></td>
+        <td><label style={{display: 'inline-block', background: '#f0f0f0', border: '1px solid #ccc', 
+        padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}>사진
+          <input type="file" accept="image/*" capture="environment" onChange={(e) => 
+          handleImageChange(e, 'productImage')} style={{ display: 'none'  }} /></label></td>
+        <td><textarea name="memo" value={form.memo} onChange={handleChange} /></td>
       </tr> 
     </tbody> 
   </table>  
@@ -371,8 +345,11 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
   <input type="text" placeholder="품목" value={searchFilter.productName} onChange={(e) => setSearchFilter({ ...searchFilter, productName: e.target.value })} />
   <input type="text" placeholder="창고명" value={searchFilter.warehouseName} onChange={(e) => setSearchFilter({ ...searchFilter, warehouseName: e.target.value })} />
   <input type="text" placeholder="매입처" value={searchFilter.supplierName} onChange={(e) => setSearchFilter({ ...searchFilter, supplierName: e.target.value })} />
+
 {/* 데이터저장파트 및 불러오기 버튼 */}
-  <button
+{/* ---  저장파트   ------ */}
+   
+<button
     onClick={() => {
       const blob = new Blob([JSON.stringify(requests, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
@@ -381,11 +358,9 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
       a.download = 'deliveryRequests.json';
       a.click();
       URL.revokeObjectURL(url);
-    }}
-  >
-    저장하기
-  </button>
-  {/*----------------div3s Handler collector 1th Area ------------------- */}
+    }}>저장하기</button>
+
+  {/* ---  불러오기 파트   ------ */}
   <input
     type="file"
     accept="application/json"

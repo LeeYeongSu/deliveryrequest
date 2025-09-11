@@ -9,52 +9,59 @@ html,body,#root{width:100%;height:100%;margin:0;padding:0;}
   font-size: 11px;
   
 } 
-/*  핸드폰용 글자크기 작게 변환용 9/10일 추가공사1
--.page{max-width:none; width:98vw; table-layout: fixed; margin:0;padding:12px 11px;font-size: 12px;}
-+.page{▶️font-size: 11px;} ▶️폰트 사이즈만 변경
--.grid th,.grid td{padding:4px;border:1px solid #e3e3e3;word-break:break-word; font-size:12px;}
-+.grid th,.grid td{▶️font-size: 11px;} ▶️폰트 사이즈만 변경
--.grid input,.grid select,.grid textarea{width:100% !important; box-sizing:border-box; font-size:12px;}
-+.grid input,.grid select,.grid textarea{▶️font-size: 11px;} ▶️폰트 사이즈만 변경
--.grid2{ table-layout: fixed; width: 100%; border-collapse: collapse; font-size : 12px; }
-+.grid2{ ▶️font-size: 11px;} ▶️폰트 사이즈만 변경
-@media (max-width:768px){
-  .page{font-size:10px}
-  .grid th,.grid td{font-size:10px}
-  .grid input,.grid select,.grid textarea{font-size:10px}
-  .grid2{font-size:10px}
-}
-*//* ==========추가공사2 (9/10)  ==================*/
-/* [ADD] 화면 비율 축소 시스템 */
+/* - - - - - - - - - - - - - - - - -  */
+/*div2  width와 min-width를 같은 px로 지정 + table-layout: fixed.  
+테이블리 넘치면 자동으로 밀어 넣는역활을 한다.*/   
+
+.table-wrap{    
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch
+} 
+/* - - - - - - - - - - - - - - - - -  */
+
+
+
+
+
+/*   */
 :root{ --ui-scale: 1; }
-
 .viewport{ width:100vw; height:100%; overflow:auto; }
+/*
+.list-wrap{max-height:300px;overflow-y:auto;border:1px solid #ccc;margin-top:12px}
+*/
 
-/* 스케일 + 레이아웃 보정(가로 폭을 스케일 역수만큼 넓혀 시각상 딱 맞춤) */
+/* 스케일 + 레이아웃 보정(가로 폭을 스케일 역수만큼 넓혀 시각상 딱 맞춤)
 .viewport .page{
   transform-origin: top left;
   transform: scale(var(--ui-scale));
   width: calc(100% / var(--ui-scale));
 }
 
+
+
 /* 앱(모바일 가로)에서 자동 축소 */
 @media (max-width:1024px) and (orientation:landscape){
-  :root{ --ui-scale: 0.65; }
+  :root{ --ui-scale: 1; }
 }
 @media (max-width:768px) and (orientation:landscape){
-  :root{ --ui-scale: 0.7; }
+  :root{ --ui-scale: 1; }
 }
 
+
+
+
 /* -----------  추가 공사2 끝 ------------------ */
-                       
-.table-wrap{    /*div2  width와 min-width를 같은 px로 지정 + table-layout: fixed.*/
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch
-} 
-.grid{ width:100%; table-layout:fixed; border-collapse:collapse }
+
+
+
+
+
+.grid { width:100%; table-layout:fixed; border-collapse:collapse }
+
+
 /*폰트수정5-2*/
 .grid th,.grid td{padding:4px;border:1px solid #e3e3e3;word-break:break-word; font-size:11px;}
-/*.grid th,.grid td{ padding:6px; border:1px solid #e3e3e3; white-space:nowrap; vertical-align:middle }*/
+
 
 .grid th{background:#f6f6f6}
 .grid img{max-width:96px;height:auto;display:block}
@@ -68,45 +75,10 @@ html,body,#root{width:100%;height:100%;margin:0;padding:0;}
   .grid2{font-size:11px}
   
 }
-/* 레이아웃 기본 */
-/* .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}*/
-/* 인라인 width 무력화 *//*폰트수정5-4*/
-.grid input,.grid select,.grid textarea{width:100% !important; box-sizing:border-box; font-size:11px;}
-/* 목록 영역 세로 스크롤 필요하면 */
-.table-wrap + .table-wrap{max-height:300px;overflow-y:auto;border:1px solid #ccc;margin-top:12px}
-
-/* 칼럼 폭: 최소~선호~최대 (px, vw 조합) */
-.grid col.w-order   { width: clamp( 50px, 10vw,  50px); }
-.grid col.w-done    { width: clamp( 40px, 10vw,  40px); }
-.grid col.w-date    { width: clamp(110px, 10vw, 110px); }
-.grid col.w-name    { width: clamp(140px, 22vw, 140px); }  
-.grid col.w-spec    { width: clamp(140px, 18vw, 140px); } 
-
-.grid col.w-qty     { width: clamp(50px, 10vw,  50px); }
-.grid col.w-price   { width: clamp(70px, 10vw, 70px); }
-
-.grid col.w-whname  { width: clamp(80px, 12vw, 80px); }
-.grid col.w-whphone { width: clamp(80px, 12vw, 80px); }
-.grid col.w-whfax   { width: clamp(80px, 12vw, 80px); }
-
-.grid col.w-supp    { width: clamp(50px, 16vw, 100px); }
-.grid col.w-sphone  { width: clamp(60px, 12vw, 120px); }
-.grid col.w-receipt { width: clamp(60px, 10vw, 60px); }
-.grid col.w-product { width: clamp(60px, 10vw, 60px); }
-.grid col.w-memo    { width: clamp(60px, 10vw, 60px); }   
 
 
-/* 보조 오버라이드(nth-child) — colgroup 미작동/충돌 대비 
-.grid2 thead th:nth-child(1),
-.grid2 tbody td:nth-child(1){ width: 40px !important; }
-.grid2 thead th:nth-child(5),
-.grid2 tbody td:nth-child(5){ width: 52px !important; }
-.grid2 thead th:nth-child(15),
-.grid2 tbody td:nth-child(15){ width: 30px !important; }
-*/
 
-/* ================== 출력 전용 테이블: grid2 ================== */
-/*폰트수정5-5*/
+
 .grid2{
   table-layout: fixed;
   width: 100%;
@@ -119,19 +91,39 @@ html,body,#root{width:100%;height:100%;margin:0;padding:0;}
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* 셀 내부 요소가 셀 폭을 밀지 않도록 */
-.grid2 input,
-.grid2 select,
-.grid2 button,
-.grid2 img{
+/* 셀 내부 요소가 셀 폭을 밀지 않도록 
+.grid2 input,.grid2 select,.grid2 button,.grid2 img{
   max-width: 100%;
   box-sizing: border-box;
 }
+*/
 
 /* 진단용(일시): grid2 표에 빨간 테두리 */
 .grid2 { outline: 3px solid red !important; }
 .grid2 td { background: rgba(255,0,0,.05) !important; }
 
+.grid col.w-order   { width: clamp( 30px, 5vw, 30px); }
+.grid col.w-done    { width: clamp( 30px, 10vw, 30px); } 
+.grid col.w-date    { width: clamp( 50px, 10vw, 50px); }
+
+.grid col.w-name    { width: clamp(120px, 18vw, 120px); }  
+.grid col.w-spec    { width: clamp(120px, 18vw, 120px); }
+
+.grid col.w-qty     { width: clamp( 40px, 10vw, 40px); }
+.grid col.w-price   { width: clamp( 60px, 10vw, 60px); }
+
+.grid col.w-whname  { width: clamp(90px, 16vw,  90px); }
+.grid col.w-whphone { width: clamp(90px, 12vw,  90px); }
+.grid col.w-whfax   { width: clamp(90px, 12vw,  90px); }
+
+.grid col.w-supp    { width: clamp(90px, 16vw,  90px); }
+.grid col.w-sphone  { width: clamp(90px, 12vw,  90px); }
+
+.grid col.w-receipt { width: clamp(110px, 10vw, 110px); }
+.grid col.w-product { width: clamp(110px, 10vw, 110px); }
+.grid col.w-memo    { width: clamp( 60px, 20vw,  60px); }
+
+  
 
 /* 칼럼 폭: 최소~선호~최대 (px, vw 조합) */
 /* 순번2:30 날짜2:40  품목2:120-140 규격2:120-140 */
@@ -139,25 +131,32 @@ html,body,#root{width:100%;height:100%;margin:0;padding:0;}
 .grid2 col.w-date2    { width: clamp( 50px, 10vw, 50px); }
 .grid2 col.w-name2    { width: clamp(120px, 18vw, 120px); }  
 .grid2 col.w-spec2    { width: clamp(120px, 18vw, 120px); }
-/*수량1:40  단가1:60 */
+
 .grid2 col.w-qty2     { width: clamp( 40px, 10vw,  40px); }
 .grid2 col.w-price2   { width: clamp( 60px, 10vw, 60px); }
 
-.grid2 col.w-whname2  { width: clamp(100px, 16vw, 100px); }
-.grid2 col.w-whphone2 { width: clamp(110px, 12vw, 110px); }
-.grid2 col.w-whfax2   { width: clamp(110px, 12vw, 110px); }
+.grid2 col.w-whname2  { width: clamp(90px, 16vw, 90px); }
+.grid2 col.w-whphone2 { width: clamp(90px, 12vw, 90px); }
+.grid2 col.w-whfax2   { width: clamp(90px, 12vw, 90px); }
 
-.grid2 col.w-supp2    { width: clamp(100px, 16vw, 100px); }
-.grid2 col.w-sphone2  { width: clamp(120px, 12vw, 120px); }
+.grid2 col.w-supp2    { width: clamp(90px, 16vw, 90px); }
+.grid2 col.w-sphone2  { width: clamp(90px, 12vw, 90px); }
 
-.grid2 col.w-done2    { width: clamp( 30px, 10vw,  30px); }
 .grid2 col.w-receipt2 { width: clamp(110px, 10vw, 110px); }
 .grid2 col.w-product2 { width: clamp(110px, 10vw, 110px); }
-.grid2 col.w-memo2    { width: clamp( 60px, 20vw, 60px); }   
-.grid2 col.w-actions2 { width: clamp( 30px, 10vw, 30px); }
+.grid2 col.w-memo2    { width: clamp( 60px, 20vw, 60px); }
+
+.grid2 col.w-done2    { width: clamp( 30px, 10vw,  30px); }   
 .grid2 col.w-edit2 { width: clamp(100px, 10vw, 100px); }
 
-/* ===================================================================== */
+
+.thead1 {
+  background: #e0e0e0;    
+  color: #333;           
+  font-weight: bold;
+}
+
+/* ===================================================================== 
 .ttt {
   background: #e0e0e0;
 }
@@ -187,15 +186,19 @@ html,body,#root{width:100%;height:100%;margin:0;padding:0;}
 }
 
 .thead1 {
-  background: #e0e0e0;    /*제목의 배경색(옅은회색)*/
-  color: #333;            /*제목의 글자색(검정색)*/
+  background: #e0e0e0;    
+  color: #333;           
   font-weight: bold;
 }
 .form2 {
   margin-Bottom: 20px;
 }
 
+*/
 
 
+
+/*background: #e0e0e0;    제목의 배경색(옅은회색)*/
+ /*  color: #333;           제목의 글자색(검정색)*/
 
 

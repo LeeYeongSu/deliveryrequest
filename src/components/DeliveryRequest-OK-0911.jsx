@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import './DeliveryRequest.css'
-import { exportJson } from "../utils/fileExport.js";
+
 
 
 const formatPhoneNumber = (value) => {
@@ -294,18 +294,18 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
     <tbody>     
       <tr>      
         <td><input name="groupOrder" type="number" value={form.groupOrder} onChange={handleChange} 
-        style={{width:'100px'}}/></td>
-        <td><input name="completed" type="checkbox" checked={form.completed} onChange={handleChange} /></td>
-        <td><input name="date" type="date" value={form.date} onChange={handleChange}  /></td>
+        style={{width:'40px'}}/></td>
+        <td><input name="completed" type="checkbox" checked={form.completed} onChange={handleChange}style={{width:'40px'}} /></td>
+        <td><input name="date" type="date" value={form.date} onChange={handleChange}style={{width:'80px'}}  /></td>
 
         <td><input name="productName" 
               list={form.productName?.length ? 'productNameList' : undefined}
-              autoComplete="off" value={form.productName} onChange={handleChange}/></td>
+              autoComplete="off" value={form.productName} onChange={handleChange}style={{width:'120px'}}/></td>
 
         <td><input name="spec" 
               list={form.spec?.length ? 'specList' : undefined}
               autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false}
-              value={form.spec} onChange={handleChange}/></td>
+              value={form.spec} onChange={handleChange}style={{width:'120px'}}/></td>
 
         <td><input name="quantity" list={form.quantity?.length ? 'quantityList' : undefined}
             value={form.quantity} onChange={handleChange} style={{width:'50px'}} /></td>
@@ -315,15 +315,13 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
           onChange={(e) => {
             const raw = e.target.value.replace(/,/g, '');
             if (!isNaN(raw)) setForm((prev) => ({ ...prev, unitPrice: raw }));
-          }}
-          
-        /></td> 
+          }}style={{width:'80px'}}/></td> 
         <td><input name="warehouseName"list="warehouseNameList" value={form.warehouseName} onChange={handleChange}
-          /></td>
+          style={{width:'120px'}}/></td>
         <td><input name="warehousePhone" value={form.warehousePhone} onChange={handleChange} 
-         /></td>
+         style={{width:'100px'}}/></td>
         <td><input name="warehouseFax" value={form.warehouseFax} onChange={handleChange} 
-         /></td>
+         style={{width:'100px'}}/></td>
         <td><input name="supplierName"list="supplierNameList" value={form.supplierName} onChange={handleChange}
            /></td>
         <td><input name="supplierPhone" value={form.supplierPhone} onChange={handleChange}  style={{width:'90px'}}/></td>
@@ -367,8 +365,8 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
 
 {/* 데이터저장파트 및 불러오기 버튼 */}
 {/* ---  저장파트   ------ */}
-   <button onClick={() => exportJson(requests, 'deliveryRequests.json')}>저장하기</button>
-{/*<button
+   
+<button
     onClick={() => {
       const blob = new Blob([JSON.stringify(requests, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
@@ -377,7 +375,7 @@ useEffect(() => { setSpecEdited(false); }, [form.productName]);
       a.download = 'deliveryRequests.json';
       a.click();
       URL.revokeObjectURL(url);
-    }}>저장하기</button>*/}
+    }}>저장하기</button>
 
   {/* ---  불러오기 파트   ------ */}
   <input
